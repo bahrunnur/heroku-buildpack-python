@@ -42,9 +42,8 @@ if (grep -iq -e "numpy" -e "scipy" requirements.txt) then
   export LIBRARY_PATH=$(pwd)/vendor/lib:$(pwd)/lib/atlas-base:$(pwd)/lib/atlas-base/atlas
   export LD_LIBRARY_PATH=$(pwd)/vendor/lib:$(pwd)/lib/atlas-base:$(pwd)/lib/atlas-base/atlas
 
-  for ((i=0;i<${#PACKAGES[@]};i++))
+  for PACKAGE in "${PACKAGES[@]}"
   do
-    PACKAGE=$PACKAGES[$i]
     echo "-----> Looking for package $PACKAGE in ../requirements.txt"
     if (grep -iqe "$PACKAGE" ../requirements.txt) then
       VERSION=`grep -ie "$PACKAGE" ../requirements.txt | awk -F"==" '{print $2}'` 
